@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{e90d5e6f-bd05-4a23-9a46-48c9b0702ec8}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>helLib.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="achievements\click_3000.png" />
+    <Content Include="achievements\click_5000.png" />
+    <Content Include="achievements\first_diamond.png" />
+    <Content Include="achievements\first_generator.png" />
+    <Content Include="achievements\first_macerator.png" />
+    <Content Include="achievements\first_massfab.png" />
+    <Content Include="achievements\first_portal.png" />
+    <Content Include="achievements\first_quarry.png" />
+    <Content Include="achievements\first_rocket.png" />
+    <Content Include="achievements\first_turtle.png" />
+    <Content Include="achievements\first_uum.png" />
+    <Content Include="achievements\ten_pickaxes.png" />
+    <Content Include="achievements\total_1m.png" />
+    <Content Include="achievements\total_500k.png" />
+    <Content Include="background.jpg" />
+    <Content Include="buttons\generator.png" />
+    <Content Include="buttons\generator_pressed.png" />
+    <Content Include="buttons\macerator.png" />
+    <Content Include="buttons\macerator_pressed.png" />
+    <Content Include="buttons\massfab.png" />
+    <Content Include="buttons\massfab_pressed.png" />
+    <Content Include="buttons\pickaxe.png" />
+    <Content Include="buttons\pickaxe_pressed.png" />
+    <Content Include="buttons\portal.png" />
+    <Content Include="buttons\portal_pressed.png" />
+    <Content Include="buttons\quarry.png" />
+    <Content Include="buttons\quarry_pressed.png" />
+    <Content Include="buttons\rocket.png" />
+    <Content Include="buttons\rocket_pressed.png" />
+    <Content Include="buttons\turtle.png" />
+    <Content Include="buttons\turtle_pressed.png" />
+    <Content Include="buttons\uum.png" />
+    <Content Include="buttons\uum_pressed.png" />
+    <Content Include="click_3000.png" />
+    <Content Include="click_5000.png" />
+    <Content Include="diamond.png" />
+    <Content Include="diamond_pressed.png" />
+    <Content Include="first_diamond.png" />
+    <Content Include="first_generator.png" />
+    <Content Include="first_macerator.png" />
+    <Content Include="first_massfab.png" />
+    <Content Include="first_portal.png" />
+    <Content Include="first_quarry.png" />
+    <Content Include="first_rocket.png" />
+    <Content Include="first_turtle.png" />
+    <Content Include="first_uum.png" />
+    <Content Include="generator.png" />
+    <Content Include="generator_pressed.png" />
+    <Content Include="macerator.png" />
+    <Content Include="macerator_pressed.png" />
+    <Content Include="massfab.png" />
+    <Content Include="massfab_pressed.png" />
+    <Content Include="pickaxe.png" />
+    <Content Include="pickaxe_pressed.png" />
+    <Content Include="portal.png" />
+    <Content Include="portal_pressed.png" />
+    <Content Include="quarry.png" />
+    <Content Include="quarry_pressed.png" />
+    <Content Include="rocket.png" />
+    <Content Include="rocket_pressed.png" />
+    <Content Include="ten_pickaxes.png" />
+    <Content Include="text_back.png" />
+    <Content Include="total_1m.png" />
+    <Content Include="total_500k.png" />
+    <Content Include="turtle.png" />
+    <Content Include="turtle_pressed.png" />
+    <Content Include="uum.png" />
+    <Content Include="uum_pressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="helLib.py" />
+    <Compile Include="Project - Diamond cliker.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="achievements" />
+    <Folder Include="buttons" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

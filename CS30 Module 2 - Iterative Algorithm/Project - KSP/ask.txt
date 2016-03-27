@@ -1,0 +1,29 @@
+explore:
+	ask body
+	ask reward
+
+collect science:
+	ask body
+	ask reward
+
+test:
+	ask equipment
+	ask location
+	ask body
+	
+	if in-flight:
+		ask min_speed
+		ask max_speed
+		ask min_alt
+		ask max_alt
+	if sub-orbit or orbit:
+		ask min_alt
+		ask max_alt
+	
+	ask reward
+
+rescue:
+	ask name
+	ask location
+	ask body
+	ask reward
