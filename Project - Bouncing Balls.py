@@ -11,8 +11,8 @@ import os
 def main():
 
     #### DISPLAY OPTIONS
-    SCREEN_WIDTH = 1680
-    SCREEN_HEIGHT = 1050
+    SCREEN_WIDTH = 1100
+    SCREEN_HEIGHT = 800
     SCREEN_SIZE = [SCREEN_WIDTH, SCREEN_HEIGHT]
     
     game = MainGame(SCREEN_SIZE)
@@ -29,8 +29,8 @@ class Ball():
         self.screen = screen
         self.radius = random.randint(2, 15)
         self.position = [init_pos[0], init_pos[1]]
-        #self.color = (random.randint(200, 255), random.randint(100, 255), 0)
-        self.color = (random.randint(0, 0), random.randint(0, 0), random.randint(50, 255))
+        self.color = (random.randint(200, 255), random.randint(100, 255), 0)
+        #self.color = (random.randint(0, 0), random.randint(0, 0), random.randint(50, 255))
         self.speed_x = float(random.randint(-20, 20)) / 10
         self.speed_y = float(random.randint(-20, 20)) / 10
         self.bounce = float(random.randint(2, 8)) / 10
