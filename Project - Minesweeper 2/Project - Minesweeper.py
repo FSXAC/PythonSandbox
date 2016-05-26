@@ -1,5 +1,5 @@
-#### PYGAME BUILDING TEMPLATE ####
-#### 2014 SEPTEMBER 03        ####
+﻿#### PYGAME BUILDING TEMPLATE ####
+#### 2016 APRIL 27            ####
 
 #### ESSENTIAL IMPORTS
 import pygame
