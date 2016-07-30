@@ -35,15 +35,20 @@ def main():
          [81, 88, 80],
          [94, 90, 84]]
         
-    yData = [63, 74, 83]
+    yData = [[63], [74], [83]]
     
     X = np.array(XData, dtype = float)
     y = np.array(yData, dtype = float)
     
     #Normalize the inputs and outputs
+    X = X / np.amax(X, axis = 0)
+    y = y / 100
     
+    #Establish other working variables
+    m = len(X)
+    n = len(X[0])
     
-    NN = Neural_Network(3, 4, 1)
+    NN = Neural_Network(n, 4, 1)
     for i in range(-10, 10):
         print(NN.sigmoid(i))
         
