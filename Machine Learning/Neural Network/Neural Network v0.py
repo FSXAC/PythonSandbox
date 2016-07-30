@@ -8,7 +8,9 @@ NEURAL NETWORK TESTING V0
 """
 
 """
-TODO CURRENTLY THE DATA AND PARAMETERS ARE HARD CODED - MAKE VARIABLE
+TODO: CURRENTLY THE DATA AND PARAMETERS ARE HARD CODED - MAKE VARIABLE
+TODO: CONTINUE ON THE END OF PART 5 - FIND ERROR: GRADIENT NOT MATCHING 
+      NUMERICAl RESULT
 """
 
 #Imports
@@ -25,6 +27,9 @@ class Neural_Network(object):
         """
         TODO: NEED VECTORIZE
         """
+#        self.WEIGHTS = [np.zeros((self.inputSize, self.hiddenSize)),
+#                        np.zeros((self.hiddenSize, self.outputSize))]
+        
         self.WEIGHTS = [np.random.randn(self.inputSize, self.hiddenSize),
                         np.random.randn(self.hiddenSize, self.outputSize)]
                         
@@ -65,15 +70,15 @@ class Neural_Network(object):
         gradient = []
         
         #Get hypothesis
-        prediction = self.forward(X)
+        self.prediction = self.forward(X)
         
         #Use prediction in the back propagation through output -> hidden
-        delta3 = np.multiply(-(y - prediction), self.sigmoidPrime(self.z3))
-        gradient.append(np.dot(self.a2.T, delta3))
+        delta3 = np.multiply(-(y - self.prediction), self.sigmoidPrime(self.z3))
+        gradient = [np.dot(self.a2.T, delta3)] + gradient
         
         #Backpropagate through hidden -> input
         delta2 = np.dot(delta3, self.WEIGHTS[1].T) * self.sigmoidPrime(self.z2)
-        gradient.append(np.dot(X.T, delta2))
+        gradient = [np.dot(X.T, delta2)] + gradient
         
         #Stacking for a deeper network
         """
@@ -83,8 +88,62 @@ class Neural_Network(object):
         """
         
         return gradient
+    
+    """
+    Helper functions for numerical computation
+    """
+    def getParams(self):
+        #Returns the parameters (weights) unrolled
+        return np.concatenate((self.WEIGHTS[0].ravel(),
+                               self.WEIGHTS[1].ravel()))
+    
+    def setParams(self, params):
+        #Set the weights using a single parameter vector
+        start = 0
+        end = self.hiddenSize * self.inputSize
+        self.WEIGHTS[0] = np.reshape(params[start:end], (self.inputSize, self.hiddenSize))
+        
+        start = end
+        end += self.hiddenSize * self.outputSize
+        self.WEIGHTS[1] = np.reshape(params[start:end], (self.hiddenSize, self.outputSize))
+        
+        
+    def computeNumericalGradients(self, X, y):
+        #Returns the gradient unrolled
+        gradient = self.costFunctionPrime(X, y)
+        return np.concatenate((gradient[0].ravel(), gradient[1].ravel()))
 
 #==============================================
+def computeNumericalGradient(NN, X, y):
+    #Computes the gradient numerically (close enough)
+    paramsInitial = NN.getParams()
+    numGradient = np.zeros(paramsInitial.shape)
+    perturb = np.zeros(paramsInitial.shape)
+    
+    #epsilon for deviation
+    e = 1e-4
+    
+    for p in range(len(paramsInitial)):
+        #Set perturbation vector
+        perturb[p] = e
+        
+        NN.setParams(paramsInitial + perturb)
+        cost2 = NN.costFunction(X, y)
+        
+        NN.setParams(paramsInitial - perturb)
+        cost1 = NN.costFunction(X, y)
+        
+        #Computer numerical gradient for each element
+        numGradient[p] = (cost2 - cost1) / (2 * e)
+        
+        #Change back to 0??
+        perturb[p] = 0
+    
+    #Reset parameters to original value
+    NN.setParams(paramsInitial)
+    
+    return numGradient
+
 def main():
     #Main program
     
@@ -108,9 +167,9 @@ def main():
     
     brain = Neural_Network(n, 4, 1)
     
-    print(brain.forward(X))
+    print(computeNumericalGradient(brain, X, y))
     print("===")
-    print(y)
+    print(brain.computeNumericalGradients(X, y))
     
-        
+    print("close enough")
 main()
