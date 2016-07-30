@@ -52,9 +52,37 @@ class Neural_Network(object):
         #Apply sigmoid activation function
         return 1 / (1 + np.exp(-z));
         
+    def sigmoidPrime(self, z):
+        #Derivative of the sigmoid function with respect to z
+        return np.exp(-z)/((1 + np.exp(-z)) ** 2)
+        
     def costFunction(self, X, y):
         #Calculate the cost function given the formula
         return sum((y - self.forward(X)) ** 2)
+        
+    def costFunctionPrime(self, X, y):
+        #Derivative of the cost function with respect to weight
+        gradient = []
+        
+        #Get hypothesis
+        prediction = self.forward(X)
+        
+        #Use prediction in the back propagation through output -> hidden
+        delta3 = np.multiply(-(y - prediction), self.sigmoidPrime(self.z3))
+        gradient.append(np.dot(self.a2.T, delta3))
+        
+        #Backpropagate through hidden -> input
+        delta2 = np.dot(delta3, self.WEIGHTS[1].T) * self.sigmoidPrime(self.z2)
+        gradient.append(np.dot(X.T, delta2))
+        
+        #Stacking for a deeper network
+        """
+        TODO: MORE RESEARCH REQUIRED - INACCURATE
+        delta_(i) = np.dot(delta_(i+1), weight_(i).T) * sigmoidPrime(z_(i))
+        gradient_(i) = np.dot(X.T, delta_(i))
+        """
+        
+        return gradient
 
 #==============================================
 def main():
