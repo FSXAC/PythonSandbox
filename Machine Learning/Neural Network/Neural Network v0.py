@@ -7,7 +7,9 @@ NEURAL NETWORK TESTING V0
 @author: Muchen
 """
 
-#TODO CURRENTLY THE DATA AND PARAMETERS ARE HARD CODED - MAKE VARIABLE
+"""
+TODO CURRENTLY THE DATA AND PARAMETERS ARE HARD CODED - MAKE VARIABLE
+"""
 
 #Imports
 import numpy as np
@@ -20,6 +22,9 @@ class Neural_Network(object):
         self.outputSize = outSize;        
         
         #Weights [W1, W2, ...]
+        """
+        TODO: NEED VECTORIZE
+        """
         self.WEIGHTS = [np.random.randn(self.inputSize, self.hiddenSize),
                         np.random.randn(self.hiddenSize, self.outputSize)]
                         
@@ -29,9 +34,11 @@ class Neural_Network(object):
         the number of training examples and n is the number of units
         """
         #Propagation through the neural network
-        #TODO: VECTORIZATION
+        """
+        TODO: NEED VECTORIZATION
+        """
         # INPUT LAYER - Matrix multiple, then use activation function
-        self.z2 = np.dot(X, self.WEIGHT[0])
+        self.z2 = np.dot(X, self.WEIGHTS[0])
         self.a2 = self.sigmoid(self.z2)
         
         # HIDDEN LAYER
@@ -44,6 +51,10 @@ class Neural_Network(object):
     def sigmoid(self, z):
         #Apply sigmoid activation function
         return 1 / (1 + np.exp(-z));
+        
+    def costFunction(self, X, y):
+        #Calculate the cost function given the formula
+        return sum((y - self.forward(X)) ** 2)
 
 #==============================================
 def main():
@@ -68,5 +79,10 @@ def main():
     n = len(X[0])
     
     brain = Neural_Network(n, 4, 1)
+    
+    print(brain.forward(X))
+    print("===")
+    print(y)
+    
         
 main()
