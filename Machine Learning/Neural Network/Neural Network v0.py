@@ -7,15 +7,22 @@ NEURAL NETWORK TESTING V0
 @author: Muchen
 """
 
+#TODO CURRENTLY THE DATA AND PARAMETERS ARE HARD CODED - MAKE VARIABLE
+
 #Imports
 import numpy as np
 
 class Neural_Network(object):
-    def __init__(self, inputSize, hiddenSize, outputSize):
+    def __init__(self, inSize, hideSize, outSize):
         #Define hyper-parameters
-        self.inputLayerSize = inputSize;
-        self.outputLayerSize = outputSize;
-        self.hiddenLayerSize = hiddenSize;
+        self.inputSize = inSize;
+        self.hiddenSize = hideSize;
+        self.outputSize = outSize;        
+        
+        #Weights
+        self.WEIGHTS = [np.random.randn(self.inputSize, self.hiddenSize),
+                        np.random.randn(self.hiddenSize, self.outputSize)]
+                        
     
     def forward(self, X):
         """Forward Propagation where X is a (m x n) matrix and m is
@@ -48,8 +55,6 @@ def main():
     m = len(X)
     n = len(X[0])
     
-    NN = Neural_Network(n, 4, 1)
-    for i in range(-10, 10):
-        print(NN.sigmoid(i))
+    brain = Neural_Network(n, 4, 1)
         
 main()
