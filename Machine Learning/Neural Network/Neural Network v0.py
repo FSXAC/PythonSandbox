@@ -19,7 +19,7 @@ class Neural_Network(object):
         self.hiddenSize = hideSize;
         self.outputSize = outSize;        
         
-        #Weights
+        #Weights [W1, W2, ...]
         self.WEIGHTS = [np.random.randn(self.inputSize, self.hiddenSize),
                         np.random.randn(self.hiddenSize, self.outputSize)]
                         
@@ -29,11 +29,23 @@ class Neural_Network(object):
         the number of training examples and n is the number of units
         """
         #Propagation through the neural network
+        #TODO: VECTORIZATION
+        # INPUT LAYER - Matrix multiple, then use activation function
+        self.z2 = np.dot(X, self.WEIGHT[0])
+        self.a2 = self.sigmoid(self.z2)
+        
+        # HIDDEN LAYER
+        self.z3 = np.dot(self.a2, self.WEIGHTS[1])
+        prediction = self.sigmoid(self.z3)
+        
+        # return OUTPUT LAYER
+        return prediction
 
     def sigmoid(self, z):
         #Apply sigmoid activation function
-        return 1/(1+np.exp(-z));
+        return 1 / (1 + np.exp(-z));
 
+#==============================================
 def main():
     #Main program
     
