@@ -26,9 +26,6 @@ class Neural_Network(object):
         self.outputSize = outSize;        
         
         #Weights [W1, W2, ...] (Parameters)
-        """
-        TODO: NEED VECTORIZE
-        """
         self.WEIGHTS = [np.ones((self.inputSize, self.hiddenSize)),
                         np.ones((self.hiddenSize, self.outputSize))]
                         
@@ -116,6 +113,57 @@ class Neural_Network(object):
         gradient1, gradient2 = self.costFunctionPrime(X, y)
         return np.concatenate((gradient1.ravel(), gradient2.ravel()))
 
+#Trainer class
+class Trainer():
+    """
+    Similar to FMINUNC, this quickly finds solution using BFGS
+    """
+    def __init__(self, NN):
+        #Make a copy of neural network from main scope
+        self.NN = NN
+    
+    def costFunctionWrapper(self, params, X, y):
+        #Set theta (weights / parameters)
+        self.NN.setParams(params)
+        
+        #Get cost and gradient
+        cost = self.NN.costFunction(X, y)
+        gradient = self.NN.computeNumericalGradients(X, y)
+        return cost, gradient
+        
+    def callBackFunction(self, params):
+        """
+        To keep track of previous values
+        """
+        self.NN.setParams(params)
+        self.costHistory.append(self.NN.costFunction(self.X, self.y))
+    
+    def train(self, X, y):
+        #Setup class attributes
+        self.X = X
+        self.y = y
+        
+        #List to store cost history
+        self.costHistory = []
+        
+        params_initial = self.NN.getParams()
+
+        #Options for optimization function
+        options = {
+        "maxiter": 200,
+        "disp": True
+        }        
+        
+        #
+        result = optimize.minimize(
+        self.costFunctionWrapper, params_initial, jac = True, method = "BFGS", 
+        args = (X, y), options = options, callback = self.callBackFunction
+        )
+        
+        #Replace old parameters with new parameters
+        self.NN.setParams(result.x)
+        self.optimizationResults = result
+
 #==============================================
 def computeNumericalGradient(NN, X, y):
     #Computes the gradient numerically (close enough)
@@ -168,12 +216,14 @@ def main():
     m = len(X)
     n = len(X[0])
     
+    #Network and trainer objects    
     brain = Neural_Network(n, 3, 1)
+    trainer = Trainer(brain)
     
-    print("===NUMERICAL COMPUTATION GRADIENT")
-    print(computeNumericalGradient(brain, X, y))
-    print("===GRADIENT DESCENT GRADIENT")
-    print(brain.computeNumericalGradients(X, y))
+    #Train network
+    trainer.train(X, y)
     
-    print("close enough")
+    print(brain.forward(X))
+    
+    
 main()
