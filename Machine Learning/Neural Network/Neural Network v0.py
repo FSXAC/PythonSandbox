@@ -15,7 +15,9 @@ TODO: CONTINUE ON THE END OF PART 5 - FIND ERROR: GRADIENT NOT MATCHING
 
 #Imports
 import numpy as np
+from scipy import optimize
 
+#Neural network class
 class Neural_Network(object):
     def __init__(self, inSize, hideSize, outSize):
         #Define hyper-parameters
@@ -23,15 +25,12 @@ class Neural_Network(object):
         self.hiddenSize = hideSize;
         self.outputSize = outSize;        
         
-        #Weights [W1, W2, ...]
+        #Weights [W1, W2, ...] (Parameters)
         """
         TODO: NEED VECTORIZE
         """
-#        self.WEIGHTS = [np.zeros((self.inputSize, self.hiddenSize)),
-#                        np.zeros((self.hiddenSize, self.outputSize))]
-        
-        self.WEIGHTS = [np.random.randn(self.inputSize, self.hiddenSize),
-                        np.random.randn(self.hiddenSize, self.outputSize)]
+        self.WEIGHTS = [np.ones((self.inputSize, self.hiddenSize)),
+                        np.ones((self.hiddenSize, self.outputSize))]
                         
     
     def forward(self, X):
@@ -63,7 +62,8 @@ class Neural_Network(object):
         
     def costFunction(self, X, y):
         #Calculate the cost function given the formula
-        return sum((y - self.forward(X)) ** 2)
+        self.prediction = self.forward(X)
+        return 0.5* sum((y - self.prediction) ** 2)
         
     def costFunctionPrime(self, X, y):
         #Derivative of the cost function with respect to weight
@@ -93,25 +93,28 @@ class Neural_Network(object):
     Helper functions for numerical computation
     """
     def getParams(self):
-        #Returns the parameters (weights) unrolled
-        return np.concatenate((self.WEIGHTS[0].ravel(),
-                               self.WEIGHTS[1].ravel()))
+        #Returns the parameters (weights) unrolled                     
+        params = np.concatenate((self.WEIGHTS[0].ravel(), 
+                                 self.WEIGHTS[1].ravel()))
+        return params
     
     def setParams(self, params):
         #Set the weights using a single parameter vector
         start = 0
         end = self.hiddenSize * self.inputSize
-        self.WEIGHTS[0] = np.reshape(params[start:end], (self.inputSize, self.hiddenSize))
+        self.WEIGHTS[0] = \
+        np.reshape(params[start:end], (self.inputSize, self.hiddenSize))
         
         start = end
         end += self.hiddenSize * self.outputSize
-        self.WEIGHTS[1] = np.reshape(params[start:end], (self.hiddenSize, self.outputSize))
+        self.WEIGHTS[1] = \
+        np.reshape(params[start:end], (self.hiddenSize, self.outputSize))
         
         
     def computeNumericalGradients(self, X, y):
         #Returns the gradient unrolled
-        gradient = self.costFunctionPrime(X, y)
-        return np.concatenate((gradient[0].ravel(), gradient[1].ravel()))
+        gradient1, gradient2 = self.costFunctionPrime(X, y)
+        return np.concatenate((gradient1.ravel(), gradient2.ravel()))
 
 #==============================================
 def computeNumericalGradient(NN, X, y):
@@ -165,10 +168,11 @@ def main():
     m = len(X)
     n = len(X[0])
     
-    brain = Neural_Network(n, 4, 1)
+    brain = Neural_Network(n, 3, 1)
     
+    print("===NUMERICAL COMPUTATION GRADIENT")
     print(computeNumericalGradient(brain, X, y))
-    print("===")
+    print("===GRADIENT DESCENT GRADIENT")
     print(brain.computeNumericalGradients(X, y))
     
     print("close enough")
