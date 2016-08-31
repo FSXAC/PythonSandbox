@@ -1,3 +1,4 @@
+#!python3
 import math
 import turtle
 
@@ -8,7 +9,7 @@ class Graph():
         self.drawerTurtle, self.gridTurtle, self.axisTurtle = turtle.Turtle(visible = False), turtle.Turtle(visible = False), turtle.Turtle(visible = False)
 
         # Class variable modifications
-        self.screen.bgcolor("black")
+        self.screen.bgcolor("#00FF00")
 
         # lift pen for all turtles
         self.drawerTurtle.penup()
@@ -18,14 +19,15 @@ class Graph():
         self.drawerTurtle.pencolor("red")
         self.gridTurtle.pencolor("grey")
         self.axisTurtle.pencolor("white")
+        self.drawerTurtle.pensize(10)
 
         self.drawerTurtle.speed(100)
         self.gridTurtle.speed(100)
         self.axisTurtle.speed(100)
 
         # calls some other functions
-        self.setupGrid()
-        self.setupAxis()
+        #self.setupGrid()
+        #self.setupAxis()
 
         print("constructor finished")
 
@@ -79,7 +81,8 @@ class Graph():
                 y = eval(equation)
             except:
                 ""
-                #print("y at x=", x, "does not exist")
+                y = 0
+                print("y at x=", x, "does not exist")
 
             # move the turtle and draw the trail
             self.drawerTurtle.goto(x, y)
