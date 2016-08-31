@@ -10,10 +10,7 @@ import tkinter as tk
 root = tk.Tk()
 
 # top display fraame
-displayFrame = tk.Frame()
-displayFrame.pack(side = "top", fill = "both")
-
-testBtn = tk.Button(displayFrame, text = "HELLO")
-testBtn.pack(fill = "both")
+displayFrame = tk.Frame(root)
+displayFrame.pack(fill = "x")
 
 root.mainloop()
