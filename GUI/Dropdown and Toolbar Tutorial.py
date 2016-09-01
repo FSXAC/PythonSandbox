@@ -86,6 +86,9 @@ line2 = canvas.create_line(100, 100, 200, 0, fill = 'red')
 rect1 = canvas.create_rectangle(25, 100, 150, 150, fill = '#ABC')
 
 # deleting graphics
-canvas.delete(line2)
+#canvas.delete(line2)
+
+# delete all graphics
+#canvas.delete('all')
 
 root.mainloop()
