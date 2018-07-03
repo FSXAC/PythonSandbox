@@ -26,7 +26,7 @@ font2 = pygame.font.Font(None, 80)
 
 # game variables
 diamonds_total = 0
-diamond_rate = 0
+diamond_rate = 10000
 
 rate_pickaxe = 0.2
 rate_turtle = 2.0
